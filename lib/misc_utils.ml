@@ -10,3 +10,11 @@ let lcm a b = (a * b) / gcd a b
 let end_with c s =
   let last = String.get s (String.length s - 1) in
   if Char.equal last c then true else false
+
+(* Fold f on all values between min and max, with init has the starting acc *)
+let fold_range ~init ~f ~min ~max =
+  let rec aux curr acc =
+    if curr > max then acc
+    else aux (curr + 1) (f acc curr)
+  in
+  aux min init
