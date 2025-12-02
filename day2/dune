@@ -2,4 +2,4 @@
  (name main)
  (preprocess
   (pps ppx_show))
- (libraries aoclib angstrom ppx_show.runtime))
+ (libraries aoclib angstrom ppx_show.runtime eio_main))
