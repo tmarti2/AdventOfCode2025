@@ -5,6 +5,11 @@ let pp_array pp_elem fmt s =
   let pp_sep ppf () = Stdlib.Format.fprintf ppf "|" in
   Stdlib.Array.to_seq s |> Stdlib.Format.pp_print_seq ~pp_sep pp_elem fmt
 
+let pp_matrix pp_elem fmt s =
+  let pp_sep ppf () = Stdlib.Format.fprintf ppf "\n" in
+  Stdlib.Array.to_seq s
+  |> Stdlib.Format.pp_print_seq ~pp_sep (pp_array pp_elem) fmt
+
 let find_max_id a =
   assert (Array.length a > 0);
   Array.foldi a ~init:(a.(0), 0) ~f:(fun i (max, mid) x ->
@@ -45,11 +50,14 @@ let filter_cell_map ~f a p =
 
 let filter_neightbors ~f a p = List.filter ~f (neightbors a p)
 let filter_neightbors_map ~f a p = List.filter ~f (neightbors_map a p)
+
 let exist_neightbor ~f a p = List.exists ~f (neightbors a p)
 let exist_neightbor_map ~f a p = List.exists ~f (neightbors_map a p)
 
-(* let find_aux ~f ~adj ~get a p = let f = Option.map ~f in List.find_map (adj
-   p) ~f:(f << get a)
+let count_neightbor ~f a p = Base.List.count ~f (neightbors a p)
+let count_neightbor_map ~f a p = Base.List.count ~f (neightbors_map a p)
 
-   let find_neightbor a p = find_aux ~adj ~get a p let find_neightbor_map a p =
-   find_aux ~adj:adj_map ~get:get_map a p *)
+let foldi_map ~f ~init a =
+  Base.Array.foldi ~init ~f:(fun y acc row ->
+      Base.Array.foldi ~init:acc ~f:(f y) row
+    ) a
