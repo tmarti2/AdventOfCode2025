@@ -79,7 +79,7 @@ struct
       Format.printf "@.%!";
       Format.printf "File  : %s@.%!" file;
       let input = Stdio.In_channel.read_all file |> do_parse in
-      if debug then Format.printf "Parsed:@[%a@]@.%!" T.pp_input input;
+      if debug then Format.printf "Parsed:@;@[%a@]@.%!" T.pp_input input;
       let t1 = Unix.gettimeofday () in
       let o1 = S.part1 input in
       let t2 = Unix.gettimeofday () in
