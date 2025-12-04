@@ -5,6 +5,12 @@ let pp_array pp_elem fmt s =
   let pp_sep ppf () = Stdlib.Format.fprintf ppf "|" in
   Stdlib.Array.to_seq s |> Stdlib.Format.pp_print_seq ~pp_sep pp_elem fmt
 
+let find_max_id a =
+  assert (Array.length a > 0);
+  Array.foldi a ~init:(a.(0), 0) ~f:(fun i (max, mid) x ->
+      if x > max then (x, i) else (max, mid)
+    )
+
 let valid a x = x >= 0 && x < Array.length a
 let valid_map map (x, y) = valid map y && valid map.(y) x
 let get a x = if valid a x then Some a.(x) else None
