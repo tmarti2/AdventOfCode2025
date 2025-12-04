@@ -8,10 +8,9 @@ Libs :
     cmdliner
     base
     ocaml-lsp-server
-    ocamlformat
+    ocp-indent
 
 Use :
   Inside dayX :
   - dune build
-  - dune build @fmt
   - dune exec -- ./main.exe

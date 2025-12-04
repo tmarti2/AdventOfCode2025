@@ -14,17 +14,9 @@ module Parsing = struct
 
   let left  = char 'L' *> integer >>| fun i -> L i
   let right = char 'R' *> integer >>| fun i -> R i
-  let line = left <|> right
+  let line  = left <|> right
 
   let input = sep_by end_of_line line
-
-
-  type input = int * int
-
-
-  let is_digit = Base.Char.is_digit
-  let integer = take_while1 is_digit >>| int_of_string
-
 end
 
 module Solving = struct

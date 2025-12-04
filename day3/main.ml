@@ -17,6 +17,7 @@ module Parsing = struct
 end
 
 module Solving = struct
+
   (* Find the max element in a sub array of a starting at pos of length size.
      For example [max_id_borned ~pos:2 ~size:2 [|1;2;3;4;5|]] will search the
      max in [[|3;4|]] and return (4, 3) where 3 is 4's ID in the original array.
@@ -25,7 +26,8 @@ module Solving = struct
     let len = Array.length a in
     assert (pos >= 0 && pos + size <= len);
     Array.sub a pos size
-    |> Array_utils.find_max_id |> fun (m, i) -> (m, pos + i)
+    |> Array_utils.find_max_id
+    |> fun (m, i) -> (m, pos + i)
 
   (* Compute values for max_id_borned with a starting position and the number
      of element starting from the right we want to ignore.
@@ -49,10 +51,9 @@ module Solving = struct
     aux 0 0 size
 
   let part_aux banks size =
-    List.fold_left
-      (fun acc bank ->
+    List.fold_left (fun acc bank ->
         acc + find_power bank size
-        ) 0 banks
+      ) 0 banks
 
   let part1 (input : Types.input) : Types.output =
     part_aux input 2
