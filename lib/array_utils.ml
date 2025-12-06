@@ -22,6 +22,10 @@ let get a x = if valid a x then Some a.(x) else None
 let get_map map (x, y) = if valid_map map (x, y) then Some map.(y).(x) else None
 let adj x = [ x - 1; x + 1 ]
 
+let get_col_map a y =
+  Stdlib.Array.fold_left (fun acc row -> row.(y) :: acc) [] a
+  |> List.rev
+
 let adj_map (x, y) =
   [
     x - 1, y - 1;

@@ -26,8 +26,9 @@ module Parsing = struct
   let leading p q = many p *> q
   let trailing p q = q <* many p
 
-  (** [enclosed l p r] creates a parser [char l *> p <* char r]  *)
-  let enclosed l p r = char l *> p <* char r
+  let enclosed p q = p *> q <* p
+
+  let char_enclosed l p r = char l *> p <* char r
 
   let not_nl = function '\n' -> false | _ -> true
   let is_digit = Base.Char.is_digit
