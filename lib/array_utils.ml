@@ -1,14 +1,14 @@
 open Base
 open Misc_utils
 
-let pp_array pp_elem fmt s =
-  let pp_sep ppf () = Stdlib.Format.fprintf ppf "|" in
+let pp_array ?(sep="|") pp_elem fmt s =
+  let pp_sep ppf () = Stdlib.Format.fprintf ppf "%s" sep in
   Stdlib.Array.to_seq s |> Stdlib.Format.pp_print_seq ~pp_sep pp_elem fmt
 
-let pp_matrix pp_elem fmt s =
+let pp_matrix ?sep pp_elem fmt s =
   let pp_sep ppf () = Stdlib.Format.fprintf ppf "\n" in
   Stdlib.Array.to_seq s
-  |> Stdlib.Format.pp_print_seq ~pp_sep (pp_array pp_elem) fmt
+  |> Stdlib.Format.pp_print_seq ~pp_sep (pp_array ?sep pp_elem) fmt
 
 let find_max_id a =
   assert (Array.length a > 0);
@@ -60,6 +60,11 @@ let exist_neightbor_map ~f a p = List.exists ~f (neightbors_map a p)
 
 let count_neightbor ~f a p = Base.List.count ~f (neightbors a p)
 let count_neightbor_map ~f a p = Base.List.count ~f (neightbors_map a p)
+
+let iteri_map ~f a =
+  Base.Array.iteri ~f:(fun y row ->
+      Base.Array.iteri ~f:(f y) row
+    ) a
 
 let foldi_map ~f ~init a =
   Base.Array.foldi ~init ~f:(fun y acc row ->
