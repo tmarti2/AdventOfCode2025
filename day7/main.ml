@@ -58,12 +58,12 @@ module Solving = struct
         | _ -> ()
       )
 
-  let part1 (input : Types.input) : Types.output =
+  let part1 (input : input) : output =
     splits := 0;
     propagation input;
     !splits
 
-  let part2 (input : Types.input) : Types.output =
+  let part2 (input : input) : output =
     (* No need to redo propagation, input is shared between part 1 and 2, and
        part 1 did the propagation already *)
     let last = input.(Array.length input - 1) in

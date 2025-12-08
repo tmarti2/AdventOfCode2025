@@ -44,12 +44,12 @@ module Solving = struct
     let op = get_op ops y in
     Base.List.reduce_exn ~f:op values
 
-  let part1 (input : Types.input) : Types.output =
+  let part1 (input : input) : output =
     let init = List.init (Array.length (snd input)) Fun.id in
     List.map (fun i -> compute_col i input) init
     |> Base.List.reduce_exn ~f:( + )
 
-  let part2 (_input : Types.input) : Types.output = 0
+  let part2 (_input : input) : output = 0
 end
 
 module Today = MakeDay (Types) (Parsing) (Solving)
